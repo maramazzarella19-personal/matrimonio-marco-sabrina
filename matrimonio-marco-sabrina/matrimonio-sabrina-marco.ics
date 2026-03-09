@@ -1,0 +1,13 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Marco e Sabrina//Matrimonio//IT
+BEGIN:VEVENT
+UID:matrimonio-marco-sabrina-20261205@example.com
+DTSTAMP:20260101T120000Z
+DTSTART:20261205T093000Z
+DTEND:20261205T220000Z
+SUMMARY:Matrimonio Marco e Sabrina
+DESCRIPTION:Cerimonia e ricevimento del matrimonio di Marco e Sabrina.
+LOCATION:Napoli e Bacoli
+END:VEVENT
+END:VCALENDAR

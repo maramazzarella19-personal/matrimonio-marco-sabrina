@@ -1,0 +1,2643 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Matrimonio Marco e Sabrina – Invito &amp; RSVP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Bonheur+Royale&family=Cormorant+Garamond:wght@400;500&family=Quicksand:wght@400;500;600;700&family=Questrial&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg-page: #ffffff;
+        --bg-card: #ffffff;
+        --bg-soft: #faf4ea;
+        --deep-green: #143228;
+        --deep-green-soft: #1d493a;
+        --primary-red: #9a283b;
+        --primary-red-dark: #742034;
+        --gold: #e3c277;
+        --gold-soft: #f7ebc8;
+        --text-main: #3a3027;
+        --text-muted: #958471;
+        --radius-xl: 24px;
+        --radius-lg: 18px;
+        --radius-full: 999px;
+        --shadow-soft: 0 18px 48px rgba(0, 0, 0, 0.10);
+        --transition-fast: 0.2s ease-out;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Questrial", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top, #fff7f0 0%, #ffffff 40%, #ffffff 100%);
+        color: var(--text-main);
+        -webkit-font-smoothing: antialiased;
+        line-height: 1.6;
+        padding: 24px 14px 48px;
+      }
+
+      .page-wrapper {
+        max-width: 1060px;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      /* Cornice principale più light */
+      .frame {
+        position: relative;
+        border-radius: 32px;
+        padding: 1px;
+        background: linear-gradient(135deg,
+            rgba(227, 194, 119, 0.55),
+            rgba(255, 255, 255, 0.9));
+        box-shadow: var(--shadow-soft);
+        overflow: hidden;
+      }
+
+      .frame-inner {
+        position: relative;
+        background:
+          linear-gradient(180deg, #fffdf8, #ffffff 50%, #fffaf0 100%);
+        border-radius: 30px;
+        padding: 28px 16px 32px;
+        overflow: hidden;
+      }
+
+      @media (min-width: 768px) {
+        .frame-inner {
+          padding: 36px 40px 40px;
+        }
+      }
+
+      /* Effetti luci / bagliori molto più delicati */
+      .light-glow {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        filter: blur(10px);
+        opacity: 0.35;
+        z-index: 0;
+        mix-blend-mode: screen;
+      }
+
+      .light-glow--gold {
+        width: 260px;
+        height: 260px;
+        top: -120px;
+        left: -80px;
+        background: radial-gradient(circle, rgba(229, 195, 105, 0.65), transparent 70%);
+      }
+
+      .light-glow--red {
+        width: 220px;
+        height: 220px;
+        bottom: -80px;
+        right: -40px;
+        background: radial-gradient(circle, rgba(154, 40, 59, 0.42), transparent 70%);
+      }
+
+      /* Neve soft */
+      .snow-layer {
+        pointer-events: none;
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        z-index: 0;
+        opacity: 0.45;
+      }
+
+      .snowflake {
+        position: fixed;
+        top: -10px;
+        color: white;
+        font-size: 12px;
+        pointer-events: none;
+        z-index: 3000;
+        animation-name: fall;
+        animation-timing-function: linear;
+        animation-iteration-count: 1;
+      }
+
+      /* Snow canvas sits behind everything */
+      #snow-canvas {
+        position: fixed;
+        /* ✅ copre sempre tutto lo schermo anche scrollando */
+        inset: 0;
+        z-index: 10;
+        pointer-events: none;
+        opacity: 0.5;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(-10px) translateX(0);
+          opacity: 0;
+        }
+
+        10% {
+          opacity: 1;
+        }
+
+        100% {
+          transform: translateY(420px) translateX(20px);
+          opacity: 0;
+        }
+      }
+
+      /* Animazioni sezione */
+      .section-animate {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.7s ease-out,
+          transform 0.7s ease-out;
+      }
+
+      .section-animate.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      section {
+        position: relative;
+        z-index: 1;
+        margin-bottom: 32px;
+      }
+
+      /* Hero più pulito */
+      .hero {
+        text-align: center;
+        padding: 18px 8px 0px;
+        position: relative;
+        min-height: 26em;
+      }
+
+      /* Cornice con immagine sempre interamente visibile */
+      .hero-wreath {
+        position: relative;
+        width: min(360px, 80vw);
+        aspect-ratio: 1 / 1;
+        background-image: url("cornice-vischio.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-wreath-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        margin: 8px auto 10px;
+      }
+
+      .badge-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--gold);
+        box-shadow: 0 0 8px rgba(229, 195, 105, 0.9);
+      }
+
+      /* Nomi sempre centrati dentro la cornice */
+      .hero-names {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: "Bonheur Royale", cursive;
+        font-size: clamp(3.2rem, 8vw, 4.2rem);
+        color: var(--primary-red-dark);
+        letter-spacing: 0.05em;
+        text-align: center;
+        width: 85%;
+        /* evita overflow sui device piccoli */
+        line-height: 1.1;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      }
+
+      .hero-names .amp {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 0.8em;
+        color: var(--gold);
+        margin: 0 6px;
+        font-weight: 500;
+        letter-spacing: 0;
+        vertical-align: middle;
+      }
+
+      .hero-names .name {
+        display: inline-block;
+      }
+
+      /* Titolo sotto l’immagine */
+      .hero-title {
+        font-family: "Quicksand", Sans-serif;
+        font-size: 1.1rem;
+        color: var(--deep-green);
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        margin-top: 4px;
+        /* piccolo distacco dall’immagine */
+        margin-bottom: 8px;
+      }
+
+      .hero-subtitle-line {
+        width: 150px;
+        height: 1px;
+        margin: 8px auto 14px;
+        background:
+          linear-gradient(90deg, transparent, rgba(229, 195, 105, 0.9), transparent);
+        position: relative;
+      }
+
+      .hero-subtitle-line::before,
+      .hero-subtitle-line::after {
+        content: "✶";
+        position: absolute;
+        top: -9px;
+        font-size: 11px;
+        color: var(--gold);
+      }
+
+      .hero-subtitle-line::before {
+        left: -4px;
+      }
+
+      .hero-subtitle-line::after {
+        right: -4px;
+      }
+
+      .hero-text {
+        max-width: 520px;
+        margin: 0 auto;
+        font-size: 1rem;
+        line-height: 1.7;
+      }
+
+      .hero-text strong {
+        color: var(--primary-red-dark);
+      }
+
+      /* Music toggle */
+      .music-toggle {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 3;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: var(--radius-full);
+        background: rgba(20, 50, 40, 0.96);
+        color: #fff;
+        font-size: 0.8rem;
+        border: 1px solid rgba(229, 195, 105, 0.7);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.28);
+        cursor: pointer;
+        transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+      }
+
+      .music-toggle.music-on {
+        background: linear-gradient(135deg, #3a6f55, #2b5b44);
+        border-color: rgba(229, 195, 105, 0.9);
+        box-shadow: 0 12px 28px rgba(20, 90, 60, 0.45);
+      }
+
+      .music-toggle.music-off {
+        background: linear-gradient(135deg, #f6e8a6, #e3c277);
+        color: #4b3d1a;
+        border-color: rgba(200, 160, 60, 0.9);
+        box-shadow: 0 10px 24px rgba(180, 150, 60, 0.35);
+      }
+
+      .music-toggle:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35);
+        background: rgba(20, 50, 40, 0.99);
+      }
+
+      .music-toggle-icon {
+        font-size: 1rem;
+        filter: drop-shadow(0 0 4px rgba(229, 195, 105, 0.8));
+      }
+
+      .music-toggle-status {
+        opacity: 0.85;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+
+      /* Countdown più bianco */
+      .countdown-section {
+        margin-top: 6px;
+        text-align: center;
+      }
+
+      .section-label {
+        font-family: "Quicksand", sans-serif;
+        font-size: 0.82rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 6px;
+      }
+
+      .countdown-title {
+        font-family: "Quicksand", sans-serif;
+        font-size: 1.15rem;
+        color: var(--deep-green);
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        margin-bottom: 14px;
+      }
+
+      .countdown-grid {
+        display: inline-grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        padding: 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.9);
+        /* border: 1px solid rgba(16,39,32,0.08);*/
+        backdrop-filter: blur(4px);
+      }
+
+      @media (max-width: 640px) {
+        .countdown-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      .countdown-item {
+        min-width: 72px;
+        padding: 8px 10px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #6e8f78, #4f6e5a);
+        color: #fff;
+        border: 1px solid rgba(16, 39, 32, 0.12);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .countdown-item::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top, rgba(229, 195, 105, 0.28), transparent 65%);
+        opacity: 0.0;
+        transition: opacity 0.4s ease-out;
+      }
+
+      .countdown-item-glow {
+        animation: glowPulse 3s ease-in-out infinite;
+      }
+
+      @keyframes glowPulse {
+
+        0%,
+        100% {
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        50% {
+          box-shadow: 0 12px 26px rgba(229, 195, 105, 0.45);
+        }
+      }
+
+      .countdown-number {
+        font-family: "Quicksand", sans-serif;
+        font-size: 1.3rem;
+        font-weight: 600;
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+
+      .countdown-label {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        opacity: 0.9;
+      }
+
+      .countdown-message {
+        margin-top: 10px;
+        font-size: 0.9rem;
+        color: var(--primary-red-dark);
+      }
+
+      /* Titoli sezione decorati */
+      .section-header {
+        text-align: center;
+        margin-bottom: 18px;
+      }
+
+      .section-title {
+        font-family: "Quicksand", sans-serif;
+        font-size: 1.25rem;
+        color: var(--deep-green);
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        margin-bottom: 6px;
+      }
+
+      .section-deco {
+        /*display: inline-flex;*/
+        align-items: center;
+        gap: 8px;
+        color: var(--gold);
+        font-size: 0.95rem;
+      }
+
+      .section-deco-line {
+        width: 70px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      }
+
+      .section-subtitle {
+        margin-top: 8px;
+        font-size: 0.92rem;
+        color: var(--text-muted);
+        max-width: 520px;
+        margin-inline: auto;
+      }
+
+      /* Grid 50/50 evento */
+      .event-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 4px 0 4px;
+      }
+
+      @media (min-width: 820px) {
+        .event-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      .event-card {
+        background: rgba(255, 255, 255, 0.98);
+        border-radius: var(--radius-xl);
+        overflow: hidden;
+        border: 1px solid rgba(229, 195, 105, 0.6);
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .event-photo {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        background: #f2eee6;
+        overflow: hidden;
+      }
+
+      .event-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transform: scale(1.02);
+      }
+
+      .event-photo::after {
+        content: attr(data-placeholder);
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: 8px;
+        font-size: 0.7rem;
+        color: rgba(255, 255, 255, 0.7);
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.26), transparent);
+      }
+
+      .event-body {
+        padding: 16px 16px 16px;
+        background: linear-gradient(180deg, #fffdf7, #ffffff);
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .event-title-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 8px;
+      }
+
+      .event-title {
+        font-family: "Quicksand", sans-serif;
+        font-size: 1.02rem;
+        color: var(--deep-green);
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+      }
+
+      .event-badge {
+        font-size: 0.78rem;
+        padding: 3px 10px;
+        border-radius: var(--radius-full);
+        border: 1px solid rgba(138, 31, 50, 0.22);
+        background: rgba(138, 31, 50, 0.04);
+        color: var(--primary-red-dark);
+        white-space: nowrap;
+      }
+
+      .event-text {
+        font-size: 0.92rem;
+        color: var(--text-main);
+      }
+
+      .event-meta {
+        font-size: 0.9rem;
+        color: var(--deep-green-soft);
+      }
+
+      .event-meta strong {
+        color: var(--primary-red-dark);
+      }
+
+      .label {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--text-muted);
+        margin-bottom: 2px;
+      }
+
+      .event-footer {
+        margin-top: 10px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .event-note {
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        flex: 1;
+        min-width: 180px;
+      }
+
+      /* Dress code più minimal/bianco */
+      .dress-box {
+        border-radius: var(--radius-xl);
+        padding: 18px 16px;
+        background: #ffffff;
+        color: var(--text-main);
+        border: 1px solid rgba(229, 195, 105, 0.8);
+        box-shadow: 0 16px 34px rgba(0, 0, 0, 0.12);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        margin: 0 4px;
+      }
+
+      .dress-box::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at top, rgba(229, 195, 105, 0.26), transparent 70%);
+        opacity: 0.5;
+        pointer-events: none;
+      }
+
+      .dress-inner {
+        position: relative;
+        z-index: 1;
+      }
+
+      .dress-title {
+        font-family: "Quicksand", sans-serif;
+        font-size: 1.02rem;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        margin-bottom: 6px;
+        color: var(--deep-green-soft);
+      }
+
+      .dress-text {
+        font-size: 0.92rem;
+      }
+
+      /* Regali / IBAN */
+      .gift-box {
+        border-radius: var(--radius-xl);
+        padding: 20px 18px;
+        background: #ffffff;
+        border: 1px solid rgba(229, 195, 105, 0.85);
+        box-shadow: 0 16px 34px rgba(0, 0, 0, 0.12);
+      }
+
+      .gift-text {
+        font-size: 0.94rem;
+        color: var(--text-main);
+        margin-bottom: 10px;
+      }
+
+      .iban-box {
+        margin-top: 10px;
+        padding: 12px 16px;
+        border-radius: var(--radius-lg);
+        background: linear-gradient(135deg, #fffdf7, #f7ebc8);
+        border: 1px dashed rgba(154, 40, 59, 0.35);
+        font-family: "Quicksand", sans-serif;
+        font-size: 0.95rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+      }
+
+      .iban-label {
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 0.82rem;
+        color: var(--primary-red-dark);
+      }
+
+      .iban-value {
+        font-weight: 600;
+        color: var(--deep-green-soft);
+        word-break: break-all;
+      }
+
+      .iban-sep {
+        opacity: 0.55;
+        color: var(--primary-red-dark);
+        font-weight: 700;
+      }
+
+      .iban-box,
+      .iban-box a,
+      .iban-value,
+      .iban-value a {
+        color: var(--deep-green-soft) !important;
+        text-decoration: none !important;
+      }
+
+      a[x-apple-data-detectors],
+      a[x-apple-data-detectors-type],
+      a[x-apple-data-detectors-type="link"],
+      a[x-apple-data-detectors-type="calendar-event"],
+      a[x-apple-data-detectors-type="telephone"],
+      a[x-apple-data-detectors-type="address"] {
+        color: inherit !important;
+        text-decoration: none !important;
+        font: inherit !important;
+      }
+
+      @media (max-width: 520px) {
+        .iban-sep {
+          display: none;
+        }
+      }
+
+      /* Gli sposi */
+      .couple-photo-main {
+        width: 100%;
+        max-width: 440px;
+        margin: 0 auto 18px;
+        border-radius: 26px;
+        overflow: hidden;
+        border: 2px solid var(--gold-soft);
+        box-shadow: 0 22px 46px rgba(0, 0, 0, 0.18);
+        background: #f2eee6;
+        aspect-ratio: 3 / 2;
+        /* puoi cambiare se serve */
+        position: relative;
+      }
+
+      .couple-photo-main img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        /* ✅ riempie tutto, ZERO fasce */
+        object-position: 50% 20%;
+        /* ✅ sposta il “focus” (volti più su) */
+      }
+
+      .couple-photo-main::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top, rgba(227, 194, 119, 0.18), transparent 60%);
+        pointer-events: none;
+      }
+
+      .spouses-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 18px;
+        margin-top: 6px;
+      }
+
+      @media (min-width: 660px) {
+        .spouses-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      .spouse-card {
+        background: rgba(255, 255, 255, 0.98);
+        border-radius: var(--radius-xl);
+        padding: 16px 14px 14px;
+        border: 1px solid rgba(229, 195, 105, 0.75);
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .spouse-avatar-wrap {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        padding: 4px;
+        background: radial-gradient(circle, #fff6dd, var(--gold));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.18);
+      }
+
+      .spouse-avatar {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 3px solid #ffffff;
+        background: #bbb;
+        position: relative;
+      }
+
+      .spouse-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .spouse-name {
+        font-family: "Quicksand", sans-serif;
+        font-size: 1.02rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--deep-green);
+        margin-top: 4px;
+      }
+
+      .spouse-address {
+        font-size: 0.9rem;
+        color: var(--text-main);
+      }
+
+      .spouse-tagline {
+        font-size: 0.84rem;
+        color: var(--text-muted);
+        margin-top: 2px;
+      }
+
+      /* Bottoni */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 9px 18px;
+        border-radius: 999px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        font-family: "Quicksand", sans-serif;
+        border: 1px solid transparent;
+        text-decoration: none;
+        cursor: pointer;
+        white-space: nowrap;
+        transition:
+          transform var(--transition-fast),
+          box-shadow var(--transition-fast),
+          background var(--transition-fast),
+          border-color var(--transition-fast),
+          color var(--transition-fast);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary-red), var(--primary-red-dark));
+        color: #fff;
+        border-color: rgba(0, 0, 0, 0.06);
+        box-shadow: 0 14px 30px rgba(138, 31, 50, 0.45);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-primary::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top, rgba(229, 195, 105, 0.35), transparent 70%);
+        opacity: 0;
+        transition: opacity 0.3s ease-out;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 18px 38px rgba(138, 31, 50, 0.55);
+      }
+
+      .btn-primary:hover::after {
+        opacity: 1;
+      }
+
+      .btn-outline {
+        background: rgba(255, 255, 255, 0.98);
+        color: var(--deep-green-soft);
+        border-color: rgba(16, 39, 32, 0.25);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.10);
+      }
+
+      .btn-outline:hover {
+        background: linear-gradient(135deg, #fffaf1, #f7ebc8);
+        border-color: var(--gold);
+        color: var(--primary-red-dark);
+        transform: translateY(-1px);
+      }
+
+      .btn-icon {
+        font-size: 1rem;
+      }
+
+      .actions-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      /* RSVP */
+      .rsvp-card {
+        background: rgba(255, 255, 255, 0.99);
+        border-radius: var(--radius-xl);
+        padding: 20px 14px 18px;
+        border: 1px solid rgba(229, 195, 105, 0.9);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14);
+      }
+
+      .rsvp-header {
+        text-align: center;
+        margin-bottom: 14px;
+      }
+
+      .rsvp-title {
+        font-family: "Quicksand", sans-serif;
+        font-size: 1.2rem;
+        color: var(--deep-green);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+
+      .rsvp-subtitle {
+        font-size: 0.94rem;
+        color: var(--text-main);
+      }
+
+      .rsvp-subtitle em {
+        color: var(--primary-red);
+      }
+
+      .rsvp-success {
+        margin-top: 10px;
+      }
+
+      .rsvp-success-inner {
+        border-radius: var(--radius-xl);
+        padding: 22px 18px;
+        background: linear-gradient(135deg, #fffdf7, #ffffff);
+        border: 1px solid rgba(229, 195, 105, 0.9);
+        box-shadow: 0 16px 34px rgba(0, 0, 0, 0.12);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .rsvp-success-inner::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top, rgba(229, 195, 105, 0.22), transparent 70%);
+        pointer-events: none;
+      }
+
+      .rsvp-success-title {
+        position: relative;
+        z-index: 1;
+        font-family: "Bonheur Royale", cursive;
+        font-size: clamp(2rem, 6vw, 2.6rem);
+        color: var(--primary-red-dark);
+        margin-bottom: 8px;
+      }
+
+      .rsvp-success-text {
+        position: relative;
+        z-index: 1;
+        font-size: 0.98rem;
+        color: var(--text-main);
+        max-width: 520px;
+        margin: 0 auto;
+        line-height: 1.7;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px 18px;
+        margin-top: 14px;
+      }
+
+      @media (min-width: 720px) {
+        .form-grid--2 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .field-label {
+        font-size: 0.86rem;
+        font-family: "Quicksand", sans-serif;
+        color: var(--deep-green-soft);
+      }
+
+      .field-label span {
+        color: var(--primary-red);
+        margin-left: 2px;
+      }
+
+      .field-helper {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+      }
+
+      .input,
+      .textarea {
+        width: 100%;
+        border-radius: 999px;
+        border: 1px solid rgba(16, 39, 32, 0.22);
+        padding: 9px 13px;
+        font-size: 0.9rem;
+        font-family: inherit;
+        outline: none;
+        background: rgba(255, 255, 255, 0.98);
+        transition:
+          border-color 0.18s ease-out,
+          box-shadow 0.18s ease-out,
+          background 0.18s ease-out;
+      }
+
+      .input:hover,
+      .textarea:hover {
+        border-color: rgba(154, 40, 59, 0.4);
+      }
+
+      .textarea {
+        border-radius: 16px;
+        min-height: 80px;
+        resize: vertical;
+        padding-top: 9px;
+        padding-bottom: 9px;
+      }
+
+      .input:focus,
+      .textarea:focus {
+        border-color: var(--primary-red);
+        box-shadow: 0 0 0 1px rgba(138, 31, 50, 0.25);
+        background: #ffffff;
+      }
+
+      .radio-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 4px;
+      }
+
+      .radio-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 13px;
+        border-radius: 999px;
+        border: 1px solid rgba(16, 39, 32, 0.22);
+        background: rgba(255, 255, 255, 0.98);
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition:
+          background 0.18s ease-out,
+          border-color 0.18s ease-out,
+          color 0.18s ease-out,
+          box-shadow 0.18s ease-out;
+      }
+
+      .radio-pill input {
+        accent-color: var(--primary-red);
+      }
+
+      .radio-pill--active {
+        border-color: var(--primary-red);
+        background: linear-gradient(135deg, #fff4f2, #f7e2dd);
+        box-shadow: 0 12px 26px rgba(138, 31, 50, 0.28);
+        color: var(--primary-red-dark);
+      }
+
+      .rsvp-footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .rsvp-note {
+        font-size: 0.86rem;
+        color: var(--text-muted);
+        max-width: 360px;
+        text-align: center;
+      }
+
+      .quick-actions {
+        margin-top: 16px;
+        text-align: center;
+      }
+
+      .quick-actions-title {
+        font-size: 0.9rem;
+        font-family: "Quicksand", sans-serif;
+        color: var(--deep-green-soft);
+        margin-bottom: 8px;
+      }
+
+      .form-message {
+        margin-top: 10px;
+        font-size: 0.86rem;
+        text-align: center;
+      }
+
+      .form-message--success {
+        color: var(--deep-green-soft);
+      }
+
+      .form-message--error {
+        color: var(--primary-red-dark);
+      }
+
+      /* Citazione finale molto chiara */
+      .quote-box {
+        border-radius: var(--radius-xl);
+        padding: 20px 16px;
+        background: linear-gradient(135deg, #fffdf7, #ffffff);
+        color: var(--deep-green);
+        border: 1px solid rgba(229, 195, 105, 0.9);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .quote-box::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at top, rgba(229, 195, 105, 0.26), transparent 70%);
+        opacity: 0.7;
+        pointer-events: none;
+      }
+
+      .quote-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 520px;
+        margin: 0 auto;
+      }
+
+      .quote-mark {
+        font-size: 2.2rem;
+        opacity: 0.25;
+        margin-bottom: -10px;
+        color: var(--primary-red-dark);
+      }
+
+      .quote-text {
+        font-family: "Bonheur Royale", cursive;
+        font-size: 1.7rem;
+        letter-spacing: 0.02em;
+        line-height: 1.4;
+        color: var(--primary-red-dark);
+      }
+
+      @media (min-width: 768px) {
+        .quote-text {
+          font-size: 1.9rem;
+        }
+      }
+
+      .quote-footer {
+        margin-top: 10px;
+        font-size: 0.86rem;
+        opacity: 0.85;
+        color: var(--deep-green-soft);
+      }
+
+      .grazie-footer {
+        font-family: "Bonheur Royale", cursive;
+        font-size: 1.7rem;
+        color: #a45043;
+        text-align: center;
+        margin-top: 18px;
+      }
+
+      /* Footer */
+      .footer {
+        margin-top: 6px;
+        text-align: center;
+        font-size: 0.82rem;
+        color: var(--text-muted);
+      }
+
+      .footer span {
+        color: var(--primary-red-dark);
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      /* =========================
+   RESPONSIVE PATCH (mobile-first)
+   ========================= */
+      /* Evita zoom strane su iOS + overflow orizzontale */
+      html {
+        -webkit-text-size-adjust: 100%;
+      }
+
+      body {
+        overflow-x: hidden;
+      }
+
+      /* Wrapper più “tight” su mobile ma senza schiacciare */
+      .page-wrapper {
+        width: 100%;
+        padding: 0;
+      }
+
+      /* Cornice: su mobile riduci un filo i raggi e padding */
+      @media (max-width: 520px) {
+        body {
+          padding: 16px 10px 36px;
+        }
+
+        .frame {
+          border-radius: 24px;
+        }
+
+        .frame-inner {
+          border-radius: 22px;
+          padding: 22px 12px 26px;
+        }
+      }
+
+      /* HERO: niente min-height fissa (su mobile crea vuoti inutili) */
+      .hero {
+        min-height: unset;
+        padding: 14px 6px 0;
+      }
+
+      /* Corona: scala meglio su schermi piccoli */
+      .hero-wreath {
+        width: min(320px, 86vw);
+      }
+
+      /* Data: sempre una riga, ma se serve “stringe” un pelo */
+      .badge-date {
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 4px 12px;
+        font-family: "Quicksand", sans-serif;
+        /* 👈 aggiungi */
+        font-size: clamp(1rem, 3.8vw, 1.35rem);
+        font-weight: 700;
+        /* 👈 vero bold */
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--deep-green-soft);
+        white-space: nowrap;
+        width: 100%;
+        text-align: center;
+      }
+
+      @media (max-width: 360px) {
+        .badge-date {
+          font-size: 0.95rem;
+          /* ultimo fallback per device piccolissimi */
+          letter-spacing: 0.08em;
+        }
+      }
+
+      /* Titolo/linea: respiro coerente */
+      .hero-title {
+        font-size: clamp(0.95rem, 3.2vw, 1.1rem);
+        letter-spacing: 0.18em;
+      }
+
+      .hero-subtitle-line {
+        width: min(160px, 55vw);
+      }
+
+      /* Countdown: su mobile occupa bene la larghezza senza uscire */
+      .countdown-grid {
+        width: 100%;
+        max-width: 520px;
+        border-radius: 24px;
+      }
+
+      .countdown-item {
+        min-width: 0;
+        /* evita che “spinga” fuori */
+      }
+
+      /* Event cards: foto più “cinematica” su mobile */
+      @media (max-width: 520px) {
+        .event-photo {
+          aspect-ratio: 16 / 11;
+        }
+
+        .event-body {
+          padding: 14px 14px 16px;
+        }
+      }
+
+      /* Bottoni: full width su mobile (più comodo) */
+      @media (max-width: 520px) {
+
+        .actions-row,
+        .event-footer {
+          justify-content: center;
+        }
+
+        .btn {
+          width: 100%;
+          max-width: 520px;
+        }
+      }
+
+      /* Coppia: full width (no “effetto colonnina”) */
+      .couple-photo-main {
+        width: 100%;
+        max-width: 720px;
+        /* più ampia su tablet/desktop */
+        margin: 0 auto 18px;
+      }
+
+      /* Spouses grid: spazio più comodo su mobile */
+      @media (max-width: 520px) {
+        .spouses-grid {
+          gap: 14px;
+        }
+
+        .spouse-card {
+          padding: 14px 12px 12px;
+        }
+      }
+
+      /* RSVP: campi più “touch” e layout più pulito su mobile */
+      @media (max-width: 520px) {
+        .rsvp-card {
+          padding: 18px 12px 16px;
+        }
+
+        .radio-group {
+          gap: 8px;
+        }
+
+        .radio-pill {
+          width: 100%;
+          justify-content: center;
+          padding: 10px 12px;
+        }
+
+        .input,
+        .textarea {
+          font-size: 16px;
+          /* iOS: evita zoom quando focus */
+        }
+      }
+
+      /* Gift box: padding più uniforme */
+      @media (max-width: 520px) {
+        .gift-box {
+          padding: 18px 14px;
+        }
+
+        .iban-box {
+          padding: 12px 12px;
+        }
+      }
+
+      /* Quote: scala elegante */
+      .quote-text {
+        font-size: clamp(1.35rem, 5.2vw, 1.9rem);
+      }
+
+      /* =========================
+   INTRO OVERLAY - WEDDING ENVELOPE
+   ========================= */
+      :focus-visible {
+        outline: 2px solid rgba(154, 40, 59, 0.95);
+        outline-offset: 3px;
+      }
+
+      body.intro-active {
+        overflow: hidden;
+      }
+
+      #main-invite {
+        transition:
+          opacity 0.9s ease,
+          filter 1.05s ease,
+          transform 1.05s ease;
+      }
+
+      body.intro-active #main-invite {
+        opacity: 0.18;
+        filter: blur(10px) saturate(0.92);
+        transform: scale(1.01);
+        pointer-events: none;
+        user-select: none;
+      }
+
+      body.intro-complete {
+        overflow-x: hidden;
+      }
+
+      body.intro-complete #main-invite {
+        opacity: 1;
+        filter: none;
+        transform: none;
+        pointer-events: auto;
+        user-select: auto;
+      }
+
+      .invite-intro {
+        position: fixed;
+        inset: 0;
+        z-index: 5000;
+        display: grid;
+        place-items: center;
+        padding: 22px 16px;
+        overflow: hidden;
+        transition:
+          opacity 0.8s ease,
+          visibility 0.8s ease;
+      }
+
+      .invite-intro.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .invite-intro__backdrop {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at top, rgba(255, 249, 240, 0.96) 0%, rgba(255, 255, 255, 0.94) 40%, rgba(250, 244, 234, 0.97) 100%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.88));
+        backdrop-filter: blur(10px);
+      }
+
+      .invite-intro__stage {
+        position: relative;
+        z-index: 1;
+        width: min(100%, 760px);
+        display: grid;
+        place-items: center;
+      }
+
+      .invite-intro__halo {
+        position: absolute;
+        width: min(72vw, 520px);
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle, rgba(227, 194, 119, 0.2) 0%, rgba(227, 194, 119, 0.08) 36%, rgba(255, 255, 255, 0) 72%);
+        filter: blur(8px);
+        transform: translateY(-12px);
+        pointer-events: none;
+      }
+
+      .envelope-scene {
+        position: relative;
+  	width: min(92vw, 560px);
+ 	 padding: 38px 0 30px;
+  	perspective: 1600px;
+	}
+
+      .envelope {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1.28 / 1;
+        transform-style: preserve-3d;
+        isolation: isolate;
+      }
+
+      .envelope-shadow {
+        position: absolute;
+        left: 50%;
+        bottom: 10px;
+        width: min(78%, 410px);
+        height: 34px;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.03) 70%, transparent 76%);
+        filter: blur(10px);
+        opacity: 0.9;
+        transition: transform 0.9s ease, opacity 0.9s ease;
+      }
+
+      .envelope-back,
+      .envelope-front,
+      .envelope-flap,
+      .invite-letter {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+	border-radius:0px 0px 18px 18px;
+      }
+
+.envelope-pocket {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 73%;
+  z-index: 2;
+  overflow: visible;
+  pointer-events: none;
+  clip-path: inset(0 0 0 0 round 0 0 18px 18px);
+  -webkit-clip-path: inset(0 0 0 0);
+  transition: clip-path 0s linear 0.24s, -webkit-clip-path 0s linear 0.24s;
+}
+      .envelope-back {
+        bottom: 0;
+        height: 66%;
+        z-index: 1;
+        background:
+          linear-gradient(180deg, #f6ead7 0%, #efe0ca 100%);
+        border: 1px solid rgba(167, 136, 86, 0.2);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.7),
+          0 24px 40px rgba(0, 0, 0, 0.10);
+      }
+
+      .envelope-front {
+        bottom: 0;
+        height: 90%;
+        z-index: 5;
+        overflow: hidden;
+        background:
+          linear-gradient(180deg, #fbf3e4 0%, #f1e1cb 100%);
+        border: 1px solid rgba(167, 136, 86, 0.22);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.78),
+          inset 0 -10px 22px rgba(183, 145, 92, 0.08),
+          0 18px 32px rgba(0, 0, 0, 0.08);
+      }
+
+      .envelope-front::before,
+      .envelope-front::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        width: 52%;
+        height: 100%;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(214, 181, 130, 0.07));
+        pointer-events: none;
+      }
+
+      .envelope-front::before {
+        left: -4%;
+        clip-path: polygon(0 0, 100% 100%, 0 100%);
+        border-right: 1px solid rgba(178, 145, 98, 0.12);
+      }
+
+      .envelope-front::after {
+        right: -4%;
+        clip-path: polygon(100% 0, 100% 100%, 0 100%);
+        border-left: 1px solid rgba(178, 145, 98, 0.12);
+      }
+
+      .envelope-front__shine {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.45), transparent 38%),
+          linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.22) 28%, transparent 52%);
+        pointer-events: none;
+      }
+
+      .envelope-front::before,
+      .envelope-front::after {
+        z-index: 1;
+      }
+
+.invite-intro.is-opening .envelope-pocket {
+  z-index: 6;
+  clip-path: inset(-140% 0 0 0 round 0 0 18px 18px);
+  -webkit-clip-path: inset(-140% 0 0 0 round 0 0 18px 18px);
+}
+
+.invite-intro.is-opening .invite-letter {
+  z-index: 6;
+}
+
+.envelope-instruction {
+  position: absolute;
+  left: 50%;
+  top: 70%;
+  transform: translate(-50%, -50%);
+  width: min(82%, 360px);
+  text-align: center;
+  font-family: "Bonheur Royale", cursive;
+  font-size: clamp(1.9rem, 5.2vw, 2.7rem);
+  line-height: 1.1;
+  color: var(--primary-red-dark);
+  text-shadow: 0 1px 0 rgba(255,255,255,0.72);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.envelope-flap {
+  top: 10%;
+  height: 48%;
+  z-index: 7;
+  transform: translateX(-50%) rotateX(0deg);
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transition:
+    transform 0.95s cubic-bezier(0.22, 0.8, 0.2, 1),
+    filter 0.8s ease;
+  will-change: transform;
+}
+
+      .envelope-flap__inner {
+        position: absolute;
+        inset: 0;
+        clip-path: polygon(0 0, 100% 0, 50% 92%);
+        background:
+          linear-gradient(180deg, #f9efdf 0%, #ebd8bc 100%);
+        border: 1px solid rgba(167, 136, 86, 0.18);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.72),
+          0 10px 24px rgba(0, 0, 0, 0.08);
+      }
+
+      .envelope-flap__inner::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        clip-path: polygon(0 0, 100% 0, 50% 92%);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.3), transparent 55%);
+        pointer-events: none;
+      }
+
+.invite-letter {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 84%;
+  height: 82%;
+  z-index: 1;
+  transform: translateX(-50%) translateY(78%);
+  transition:
+    transform 1.05s cubic-bezier(0.22, 0.8, 0.2, 1),
+    box-shadow 0.9s ease,
+    opacity 0.7s ease;
+  transition-delay: 0.32s, 0s, 0s;
+  background:
+    linear-gradient(180deg, #fffdf8 0%, #fffaf0 100%);
+  border: 1px solid rgba(227,194,119,0.42);
+  border-radius: 14px 14px 10px 10px;
+  box-shadow:
+    0 12px 26px rgba(0,0,0,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.84);
+  overflow: hidden;
+  opacity: 0.98;
+  will-change: transform;
+}
+
+      .invite-letter::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at top, rgba(227, 194, 119, 0.18), transparent 48%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.3), transparent 45%);
+        pointer-events: none;
+      }
+
+      .invite-letter__inner {
+        position: relative;
+        z-index: 1;
+        height: 100%;
+        padding: 20px 18px 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 8px;
+      }
+
+      .invite-letter__eyebrow {
+        font-family: "Quicksand", sans-serif;
+        font-size: 0.72rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+
+      .invite-letter__title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(1.3rem, 4.2vw, 2rem);
+        line-height: 1.1;
+        font-weight: 500;
+        color: var(--deep-green);
+        max-width: 90%;
+      }
+
+      .invite-letter__divider {
+        width: 86px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(227, 194, 119, 0.95), transparent);
+      }
+
+      .invite-letter__subtitle {
+        font-family: "Bonheur Royale", cursive;
+        font-size: clamp(1.5rem, 4.6vw, 2rem);
+        line-height: 1.05;
+        color: var(--primary-red-dark);
+      }
+
+      .wax-seal {
+        position: absolute;
+        left: 50%;
+        top: 43%;
+        transform: translate(-50%, -50%) scale(1);
+        z-index: 8;
+        width: clamp(78px, 18vw, 96px);
+        height: clamp(78px, 18vw, 96px);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        background:
+          radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.30), transparent 28%),
+          radial-gradient(circle at 50% 45%, #b5384b 0%, #96293c 52%, #6f1e31 100%);
+        box-shadow:
+          0 14px 28px rgba(116, 32, 52, 0.35),
+          inset 0 2px 2px rgba(255, 255, 255, 0.18),
+          inset 0 -8px 14px rgba(70, 10, 25, 0.28);
+        transition:
+          transform 0.22s ease,
+          box-shadow 0.22s ease,
+          opacity 0.55s ease,
+          filter 0.55s ease;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .wax-seal:hover {
+        transform: translate(-50%, -50%) scale(1.04);
+        box-shadow:
+          0 18px 32px rgba(116, 32, 52, 0.38),
+          inset 0 2px 2px rgba(255, 255, 255, 0.18),
+          inset 0 -8px 14px rgba(70, 10, 25, 0.28);
+      }
+
+      .wax-seal:active,
+      .wax-seal.is-pressed {
+        transform: translate(-50%, -50%) scale(0.96);
+      }
+
+      .wax-seal__inner {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: 100%;
+        height: 100%;
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(1.15rem, 4.2vw, 1.6rem);
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        color: rgba(255, 243, 230, 0.96);
+        text-shadow:
+          0 1px 0 rgba(88, 20, 35, 0.75),
+          0 0 10px rgba(255, 255, 255, 0.08);
+      }
+
+      .wax-seal__inner::before {
+        content: "";
+        position: absolute;
+        inset: 18%;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 235, 220, 0.16);
+        box-shadow: inset 0 0 0 1px rgba(90, 15, 30, 0.08);
+      }
+
+      .invite-intro.is-opening .wax-seal {
+        opacity: 0;
+        filter: blur(4px);
+        transform: translate(-50%, -50%) scale(0.72);
+      }
+
+      .invite-intro.is-opening .envelope-flap {
+        transform: translateX(-50%) rotateX(-168deg);
+        filter: saturate(0.98);
+      }
+
+.invite-intro.is-opening .invite-letter {
+  z-index: 6;
+  transform: translateX(-50%) translateY(-34%);
+  box-shadow:
+    0 20px 46px rgba(0,0,0,0.16),
+    inset 0 1px 0 rgba(255,255,255,0.84);
+}
+      .invite-intro.is-opening .envelope-shadow {
+        transform: translateX(-50%) scaleX(0.88);
+        opacity: 0.68;
+      }
+
+      .invite-intro.is-opening .envelope-instruction {
+        opacity: 0.14;
+        transition: opacity 0.4s ease;
+      }
+
+      .invite-intro.is-fading .envelope-scene {
+        transform: translateY(-18px) scale(0.985);
+        opacity: 0;
+        transition:
+          transform 0.7s ease,
+          opacity 0.7s ease;
+      }
+
+    @media (max-width: 520px) {
+  .envelope-scene {
+    width: min(94vw, 520px);
+    padding: 30px 0 24px;
+  }
+
+  .envelope {
+    aspect-ratio: 1.18 / 1;
+  }
+
+  .envelope-pocket {
+    height: 74%;
+    border-radius: 0 0 16px 16px;
+  }
+
+  .envelope-back {
+    height: 68%;
+  }
+
+  .envelope-front {
+    height: 91%;
+  }
+
+  .envelope-flap {
+    top: 9%;
+    height: 46%;
+  }
+
+  .envelope-instruction {
+    width: 84%;
+    top: 66%;
+    font-size: clamp(1.6rem, 6.6vw, 2.15rem);
+    line-height: 1.08;
+  }
+
+.invite-letter {
+  width: 84%;
+  height: 80%;
+  bottom: 0;
+  transform: translateX(-50%) translateY(82%);
+  border-radius: 12px 12px 10px 10px;
+  transition-delay: 0.34s, 0s, 0s;
+}
+
+.invite-intro.is-opening .invite-letter {
+  transform: translateX(-50%) translateY(-28%);
+}
+
+  .invite-letter__inner {
+    padding: 16px 14px 12px;
+    gap: 6px;
+  }
+
+  .invite-letter__eyebrow {
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+  }
+
+  .invite-letter__title {
+    font-size: clamp(1.12rem, 4.6vw, 1.45rem);
+    line-height: 1.12;
+  }
+
+  .invite-letter__subtitle {
+    font-size: clamp(1.15rem, 5vw, 1.55rem);
+    line-height: 1.02;
+  }
+
+.envelope-pocket {
+  clip-path: inset(0 0 0 0 round 0 0 16px 16px);
+  -webkit-clip-path: inset(0 0 0 0 round 0 0 16px 16px);
+}
+
+.invite-intro.is-opening .envelope-pocket {
+  clip-path: inset(-140% 0 0 0 round 0 0 16px 16px);
+  -webkit-clip-path: inset(-140% 0 0 0 round 0 0 16px 16px);
+}
+}
+
+     @media (max-width: 390px) {
+  .envelope-pocket {
+    height: 75%;
+  }
+
+  .envelope-front {
+    height: 91%;
+  }
+
+.invite-letter {
+  height: 79%;
+  transform: translateX(-50%) translateY(84%);
+}
+
+.invite-intro.is-opening .invite-letter {
+  transform: translateX(-50%) translateY(-24%);
+}
+
+  .envelope-instruction {
+    top: 60%;
+    font-size: clamp(1.45rem, 6.4vw, 1.95rem);
+  }
+.envelope-pocket {
+  clip-path: inset(0 0 0 0 round 0 0 16px 16px);
+  -webkit-clip-path: inset(0 0 0 0 round 0 0 16px 16px);
+}
+
+.invite-intro.is-opening .envelope-pocket {
+  clip-path: inset(-135% 0 0 0 round 0 0 16px 16px);
+  -webkit-clip-path: inset(-135% 0 0 0 round 0 0 16px 16px);
+}
+}
+
+      @media (prefers-reduced-motion: reduce) {
+
+        .invite-intro,
+        #main-invite,
+        .envelope-flap,
+        .invite-letter,
+        .wax-seal,
+        .envelope-shadow,
+        .envelope-scene {
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+        }
+
+        body.intro-active #main-invite {
+          filter: blur(2px);
+        }
+
+        .invite-intro.is-opening .envelope-flap {
+          transform: translateX(-50%) rotateX(-178deg);
+        }
+
+        .invite-intro.is-opening .invite-letter {
+          transform: translateX(-50%) translateY(-24px);
+        }
+      }
+    </style>
+  </head>
+  <body class="intro-active">
+    <canvas id="snow-canvas" aria-hidden="true"></canvas>
+    <!-- INTRO OVERLAY -->
+    <div class="invite-intro" id="invite-intro" aria-labelledby="intro-title" aria-describedby="intro-hint">
+      <div class="invite-intro__backdrop"></div>
+      <div class="invite-intro__stage">
+        <div class="invite-intro__halo" aria-hidden="true"></div>
+        <div class="envelope-scene" id="envelope-scene">
+          <div class="envelope-shadow" aria-hidden="true"></div>
+          <div class="envelope" aria-hidden="true">
+            <div class="envelope-back"></div>
+            <div class="envelope-pocket" aria-hidden="true">
+              <div class="invite-letter" id="invite-letter">
+                <div class="invite-letter__inner">
+                  <p class="invite-letter__eyebrow">Wedding Invitation</p>
+                  <h2 class="invite-letter__title" id="intro-title"> Invito al matrimonio di Marco e Sabrina </h2>
+                  <div class="invite-letter__divider"></div>
+                  <p class="invite-letter__subtitle"> Un momento speciale sta per iniziare </p>
+                </div>
+              </div>
+            </div>
+            <div class="envelope-front">
+              <div class="envelope-front__shine" aria-hidden="true"></div>
+              <p class="envelope-instruction" id="intro-hint"> Tocca il sigillo per aprire l’invito </p>
+            </div>
+            <div class="envelope-flap" id="envelope-flap">
+              <div class="envelope-flap__inner"></div>
+            </div>
+            <button type="button" class="wax-seal" id="wax-seal" aria-label="Apri l’invito e avvia la musica di sottofondo">
+              <span class="wax-seal__inner">M&amp;S</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-wrapper" id="main-invite">
+      <div class="frame">
+        <div class="frame-inner">
+          <!-- Luci / neve -->
+          <div class="light-glow light-glow--gold"></div>
+          <div class="light-glow light-glow--red"></div>
+          <div class="snow-layer" id="snow-layer" aria-hidden="true"></div>
+          <button type="button" class="music-toggle music-off" id="music-toggle" aria-label="Attiva o disattiva la musica di sottofondo" aria-pressed="false">
+            <span class="music-toggle-icon" aria-hidden="true">🎵</span>
+            <span class="music-toggle-status" id="music-status">Off</span>
+          </button>
+          <!-- HERO -->
+          <section class="hero section-animate is-visible">
+            <div class="hero-inner">
+              <div class="hero-wreath-wrapper">
+                <!-- Data SOPRA l’immagine -->
+                <div class="badge-date"> Sabato 5 dicembre 2026 </div>
+                <!-- Cornice con nomi CENTRATI -->
+                <div class="hero-wreath">
+                  <h1 class="hero-names"> Marco <span class="amp">&amp;</span> Sabrina </h1>
+                </div>
+                <!-- Titolo SOTTO l’immagine -->
+                <p class="hero-title">Il Nostro Matrimonio</p>
+              </div>
+              <div class="hero-subtitle-line"></div>
+              <p class="hero-text"> Con gioia vi invitiamo a condividere con noi il giorno del nostro <strong>“Sì”</strong>, tra luci, abbracci e aria di Natale. </p>
+            </div>
+          </section>
+          <!-- COUNTDOWN -->
+          <section class="countdown-section section-animate">
+            <div class="section-label"></div>
+            <h2 class="countdown-title">Manca sempre meno al nostro giorno speciale!</h2>
+            <div class="countdown-grid" id="countdown">
+              <div class="countdown-item countdown-item-glow">
+                <div class="countdown-number" id="cd-days">--</div>
+                <div class="countdown-label">Giorni</div>
+              </div>
+              <div class="countdown-item countdown-item-glow">
+                <div class="countdown-number" id="cd-hours">--</div>
+                <div class="countdown-label">Ore</div>
+              </div>
+              <div class="countdown-item countdown-item-glow">
+                <div class="countdown-number" id="cd-minutes">--</div>
+                <div class="countdown-label">Minuti</div>
+              </div>
+              <div class="countdown-item countdown-item-glow">
+                <div class="countdown-number" id="cd-seconds">--</div>
+                <div class="countdown-label">Secondi</div>
+              </div>
+            </div>
+            <p class="countdown-message" id="countdown-message"></p>
+          </section>
+          <!-- EVENTO: CERIMONIA & RICEVIMENTO -->
+          <section class="section-animate">
+            <div class="section-header">
+              <h2 class="section-title">Il giorno del matrimonio</h2>
+              <div class="section-deco">
+                <img src="vischio.png" style="width: 30%; height: auto; opacity:0.6" />
+              </div>
+              <p class="section-subtitle"> Tutti i dettagli per accompagnarci nella celebrazione e nel ricevimento. </p>
+            </div>
+            <div class="event-grid">
+              <!-- Cerimonia -->
+              <article class="event-card">
+                <div class="event-photo" data-placeholder="">
+                  <img src="foto-chiesa.webp" alt="Chiesa di Sant'Antonio a Posillipo" />
+                </div>
+                <div class="event-body">
+                  <div class="event-title-row">
+                    <h3 class="event-title">La cerimonia</h3>
+                    <span class="event-badge">Ore 10:30</span>
+                  </div>
+                  <p class="event-text"> La celebrazione del nostro matrimonio si terrà presso la <strong>Chiesa di Sant’Antonio a Posillipo</strong>. </p>
+                  <div>
+                    <div class="label">Indirizzo</div>
+                    <p class="event-meta"> Via Minucio Felice, 13, 80122 Napoli (NA) </p>
+                  </div>
+                  <div>
+                    <div class="label">Parcheggio</div>
+                    <p class="event-text"> Vi consigliamo di arrivare con qualche minuto di anticipo per parcheggiare comodamente nel piazzale antistante la chiesa. </p>
+                  </div>
+                  <div class="event-footer">
+                    <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=Chiesa+di+Sant%27Antonio+a+Posillipo" target="_blank" rel="noopener noreferrer">
+                      <span class="btn-icon">📍</span>
+                      <span>Indicazioni per la Chiesa</span>
+                    </a>
+                  </div>
+                </div>
+              </article>
+              <!-- Ricevimento -->
+              <article class="event-card">
+                <div class="event-photo" data-placeholder="">
+                  <img src="foto-ricevimento.jpeg" alt="Hotel Il Gabbiano, Bacoli" />
+                </div>
+                <div class="event-body">
+                  <div class="event-title-row">
+                    <h3 class="event-title">Il ricevimento</h3>
+                    <span class="event-badge">Dopo la cerimonia</span>
+                  </div>
+                  <p class="event-text"> Dopo la cerimonia, saremo felici di festeggiare insieme a voi presso <strong>Il Gabbiano</strong>, con vista sul mare di Bacoli. </p>
+                  <div>
+                    <div class="label">Indirizzo</div>
+                    <p class="event-meta"> Via Cicerone, 21, 80070 Bacoli (NA) </p>
+                  </div>
+                  <div>
+                    <div class="label">Parcheggio</div>
+                    <p class="event-text"> È disponibile per tutti gli ospiti un comodo parcheggio interno alla struttura, con accesso dall’ingresso principale su Via Cicerone. </p>
+                  </div>
+                  <div class="event-footer">
+                    <a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=Hotel+Il+Gabbiano,+Via+Cicerone+21,+80070+Bacoli+NA" target="_blank" rel="noopener noreferrer">
+                      <span class="btn-icon">📍</span>
+                      <span>Indicazioni per il Ricevimento</span>
+                    </a>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+          <!-- DRESS CODE -->
+          <section class="section-animate" style=" display: none;">
+            <div class="section-header">
+              <h2 class="section-title">Dress code</h2>
+              <div class="section-deco">
+                <span class="section-deco-line"></span>
+                <span>✨</span>
+                <span class="section-deco-line"></span>
+              </div>
+            </div>
+            <div class="dress-box">
+              <div class="dress-inner">
+                <p class="dress-title">Elegante con un tocco natalizio</p>
+                <p class="dress-text"> Vi suggeriamo un abbigliamento elegante con un tocco di Natale: colori caldi, <strong>verde</strong>, <strong>rosso</strong>, <strong>oro</strong>, dettagli luminosi che richiamino la magia delle feste. </p>
+              </div>
+            </div>
+          </section>
+          <!-- GLI SPOSI -->
+          <section class="section-animate">
+            <div class="section-header">
+              <h2 class="section-title">Gli sposi</h2>
+              <div class="section-deco">
+                <span class="section-deco-line"></span>
+                <span>💫</span>
+                <span class="section-deco-line"></span>
+              </div>
+              <p class="section-subtitle"> La nostra storia in un istante, in attesa del grande giorno. </p>
+            </div>
+            <div class="couple-photo-main">
+              <img src="foto-sposi-insieme.jpeg" alt="Marco e Sabrina" />
+            </div>
+            <div class="spouses-grid">
+              <!-- Sabrina -->
+              <article class="spouse-card">
+                <div class="spouse-avatar-wrap">
+                  <div class="spouse-avatar" data-placeholder="">
+                    <img src="foto-sabrina.jpeg" alt="Sabrina" />
+                  </div>
+                </div>
+                <div class="spouse-name">Sabrina</div>
+                <div class="spouse-address"> Via Trieste, 102, 80038 Pomigliano d'Arco (NA) </div>
+                <div class="spouse-tagline"> Sempre pronta ad ascoltare, sorridere e condividere momenti speciali. </div>
+              </article>
+              <!-- Marco -->
+              <article class="spouse-card">
+                <div class="spouse-avatar-wrap">
+                  <div class="spouse-avatar" data-placeholder="">
+                    <img src="foto-marco.jpeg" alt="Marco" />
+                  </div>
+                </div>
+                <div class="spouse-name">Marco</div>
+                <div class="spouse-address"> Cupa Camaldoli, 10, 80131 Napoli (NA) </div>
+                <div class="spouse-tagline"> Sempre pronto a brindare, ridere e godermi ogni momento insieme a voi. </div>
+              </article>
+            </div>
+          </section>
+          <!-- RSVP -->
+          <section id="rsvp" class="section-animate">
+            <div class="section-header">
+              <h2 class="section-title">RSVP</h2>
+              <div class="section-deco">
+                <span class="section-deco-line"></span>
+                <span>✉️</span>
+                <span class="section-deco-line"></span>
+              </div>
+            </div>
+            <div class="rsvp-card">
+              <div class="rsvp-header">
+                <h3 class="rsvp-title">Conferma la tua presenza</h3>
+                <p class="rsvp-subtitle"> Per aiutarci a organizzare al meglio la giornata, vi chiediamo di <em>confermare la vostra presenza</em> compilando il form qui sotto. </p>
+              </div>
+              <form id="rsvp-form" method="POST" action="https://formspree.io/f/xgonwdke">
+                <input type="hidden" name="_subject" value="RSVP Matrimonio Marco e Sabrina">
+                <div class="form-grid form-grid--2">
+                  <!-- Mittente (sempre) -->
+                  <div class="field">
+                    <label class="field-label" for="mittente">Il tuo nome / famiglia <span>*</span>
+                    </label>
+                    <input id="mittente" name="mittente" type="text" class="input" required placeholder="Es. Famiglia Rossi" />
+                  </div>
+                  <!-- Ci sarete? -->
+                  <div class="field">
+                    <label class="field-label" for="presenza">Ci sarete? <span>*</span>
+                    </label>
+                    <div class="radio-group" id="presence-group">
+                      <label class="radio-pill">
+                        <input type="radio" name="presenza" value="Si" required />
+                        <span>Sì, ci saremo</span>
+                      </label>
+                      <label class="radio-pill">
+                        <input type="radio" name="presenza" value="No" />
+                        <span>Non riusciremo a esserci</span>
+                      </label>
+                    </div>
+                  </div>
+                  <!-- Campi aggiuntivi solo se SI -->
+                  <div class="field rsvp-when-yes">
+                    <label class="field-label" for="totale"> Quante persone sarete in totale? <span>*</span>
+                    </label>
+                    <input id="totale" name="totale" type="number" min="0" class="input" />
+                    <div class="field-helper"> Indicate il numero complessivo di partecipanti. </div>
+                  </div>
+                  <div class="field rsvp-when-yes">
+                    <label class="field-label" for="adulti">Numero adulti</label>
+                    <input id="adulti" name="adulti" type="number" min="0" class="input" />
+                  </div>
+                  <div class="field rsvp-when-yes">
+                    <label class="field-label" for="bambini">Numero bambini</label>
+                    <input id="bambini" name="bambini" type="number" min="0" class="input" />
+                  </div>
+                  <!-- Intolleranze -->
+                  <div class="field rsvp-when-yes">
+                    <label class="field-label" for="intolleranze">Intolleranze / esigenze alimentari</label>
+                    <textarea id="intolleranze" name="intolleranze" class="textarea" placeholder="Segnalate eventuali intolleranze o esigenze particolari"></textarea>
+                  </div>
+                  <!-- Messaggio - visibile sia se SI che se NO -->
+                  <div class="field" style="grid-column: 1 / -1;">
+                    <label class="field-label" for="messaggio">Lascia un messaggio</label>
+                    <textarea id="messaggio" name="messaggio" class="textarea" placeholder="Se vi fa piacere, lasciate un pensiero per questo giorno speciale."></textarea>
+                  </div>
+                </div>
+                <div class="rsvp-footer">
+                  <button type="submit" class="btn btn-primary">
+                    <span class="btn-icon">✨</span>
+                    <span>Invia conferma</span>
+                  </button>
+                </div>
+                <div class="quick-actions">
+                  <div class="actions-row">
+                    <a class="btn btn-outline" href="matrimonio-sabrina-marco.ics" target="_blank" rel="noopener noreferrer">
+                      <span class="btn-icon">📅</span>
+                      <span>Aggiungi al Calendario</span>
+                    </a>
+                  </div>
+                </div>
+                <div id="form-message" class="form-message" aria-live="polite"></div>
+              </form>
+              <div id="rsvp-success" class="rsvp-success" hidden>
+                <div class="rsvp-success-inner">
+                  <p class="rsvp-success-title">Grazie di cuore!</p>
+                  <p class="rsvp-success-text"> La vostra risposta è stata inviata con successo. Non vediamo l’ora di festeggiare insieme a voi. </p>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- REGALI / IBAN -->
+          <section class="section-animate">
+            <div class="section-header">
+              <h2 class="section-title">Regali e pensieri</h2>
+              <div class="section-deco">
+                <span class="section-deco-line"></span>
+                <img src="vischio2.png" style="width: 6%; height: auto; opacity:0.7" />
+                <span class="section-deco-line"></span>
+              </div>
+            </div>
+            <div class="gift-box">
+              <p class="gift-text"> Il regalo più bello per noi sarà avere voi al nostro fianco in questo giorno speciale. Se desiderate però farci un pensiero, potete farlo attraverso un contributo libero: </p>
+              <div class="iban-box">
+                <span class="iban-label">IBAN</span>
+                <span class="iban-value" style="color:#1d493a;">IT28 S062 3033 7110 0001 5245 795</span>
+                <span class="iban-sep" aria-hidden="true">•</span>
+                <span class="iban-label">Intestatario</span>
+                <span class="iban-value"> Marco Cardillo </span>
+              </div>
+              <p class="gift-text" style="margin-top: 10px;"> Vi ringraziamo fin d’ora per ogni gesto di affetto. </p>
+            </div>
+          </section>
+          <!-- CITAZIONE FINALE -->
+          <section class="section-animate">
+            <div class="quote-box">
+              <div class="quote-inner">
+                <div class="quote-mark">“</div>
+                <p class="quote-text"> Il nostro “Sì” sarà la promessa di continuare il cammino che abbiamo già iniziato insieme, con voi nel cuore. </p>
+              </div>
+            </div>
+          </section>
+          <!-- FOOTER -->
+          <p class="grazie-footer"> Grazie! </p>
+          <footer class="footer"></footer>
+        </div>
+      </div>
+    </div>
+    <audio id="bg-music" src="musica-invito.mp3" loop preload="auto"></audio>
+    <script>
+      // --- Snow animation (soft DOM flakes) ---
+      function createSnowflake() {
+        const snowflake = document.createElement("div");
+        snowflake.classList.add("snowflake");
+        snowflake.textContent = "❆";
+        snowflake.style.left = Math.random() * 100 + "vw";
+        snowflake.style.animationDuration = 10 + Math.random() * 8 + "s";
+        snowflake.style.opacity = 0.2 + Math.random() * 0.4;
+        snowflake.style.fontSize = 10 + Math.random() * 10 + "px";
+        document.body.appendChild(snowflake);
+        setTimeout(() => {
+          snowflake.remove();
+        }, 22000);
+      }
+      setInterval(createSnowflake, 900);
+      // Animazioni on scroll
+      (function initSectionAnimations() {
+        const sections = document.querySelectorAll(".section-animate");
+        if (!("IntersectionObserver" in window)) {
+          sections.forEach((s) => s.classList.add("is-visible"));
+          return;
+        }
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          }, {
+            threshold: 0.15
+          });
+        sections.forEach((section) => observer.observe(section));
+      })();
+      // Countdown
+      (function initCountdown() {
+        const daysEl = document.getElementById("cd-days");
+        const hoursEl = document.getElementById("cd-hours");
+        const minutesEl = document.getElementById("cd-minutes");
+        const secondsEl = document.getElementById("cd-seconds");
+        const messageEl = document.getElementById("countdown-message");
+        const container = document.getElementById("countdown");
+        // 5 dicembre 2026, 10:00 ora italiana (UTC+1, ipotizziamo inverno)
+        const targetDate = new Date("2026-12-05T10:00:00+01:00").getTime();
+
+        function update() {
+          const now = Date.now();
+          const distance = targetDate - now;
+          if (distance <= 0) {
+            if (container) {
+              container.style.display = "none";
+            }
+            if (messageEl) {
+              messageEl.textContent = "Il grande giorno è arrivato! Se stai leggendo questo, probabilmente stiamo già festeggiando ✨";
+            }
+            clearInterval(intervalId);
+            return;
+          }
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor(
+            (distance % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          if (daysEl) daysEl.textContent = String(days);
+          if (hoursEl) hoursEl.textContent = String(hours).padStart(2, "0");
+          if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, "0");
+          if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, "0");
+        }
+        const intervalId = setInterval(update, 1000);
+        update();
+      })();
+      (function initIntroAndMusic() {
+        const body = document.body;
+        const audio = document.getElementById("bg-music");
+        const musicToggle = document.getElementById("music-toggle");
+        const musicStatus = document.getElementById("music-status");
+        const intro = document.getElementById("invite-intro");
+        const seal = document.getElementById("wax-seal");
+        if (!audio || !musicToggle || !musicStatus) return;
+        let isPlaying = false;
+        let hasUserUnlockedAudio = false;
+        let introCompleted = false;
+        let introStarted = false;
+        audio.volume = 0.35;
+
+        function updateMusicUi() {
+          musicStatus.textContent = isPlaying ? "On" : "Off";
+          musicToggle.classList.remove("music-on", "music-off");
+          musicToggle.classList.add(isPlaying ? "music-on" : "music-off");
+          musicToggle.setAttribute("aria-pressed", String(isPlaying));
+        }
+        async function playMusicFromGesture() {
+          try {
+            await audio.play();
+            isPlaying = true;
+            hasUserUnlockedAudio = true;
+          } catch (err) {
+            console.warn("Impossibile avviare l'audio dopo la gesture utente:", err);
+            isPlaying = false;
+          }
+          updateMusicUi();
+        }
+        async function toggleMusic() {
+          try {
+            if (isPlaying) {
+              audio.pause();
+              isPlaying = false;
+            } else {
+              await audio.play();
+              isPlaying = true;
+              hasUserUnlockedAudio = true;
+            }
+          } catch (err) {
+            console.warn("Errore gestione audio:", err);
+            isPlaying = false;
+          }
+          updateMusicUi();
+        }
+        musicToggle.addEventListener("click", toggleMusic);
+        audio.addEventListener("play", () => {
+          isPlaying = true;
+          updateMusicUi();
+        });
+        audio.addEventListener("pause", () => {
+          isPlaying = false;
+          updateMusicUi();
+        });
+        audio.addEventListener("ended", () => {
+          isPlaying = false;
+          updateMusicUi();
+        });
+        updateMusicUi();
+        if (!intro || !seal) {
+          body.classList.remove("intro-active");
+          body.classList.add("intro-complete");
+          return;
+        }
+
+async function openInvitation() {
+  if (introStarted) return;
+  introStarted = true;
+  seal.classList.add("is-pressed");
+  await playMusicFromGesture();
+
+  window.setTimeout(() => {
+    seal.classList.remove("is-pressed");
+    intro.classList.add("is-opening");
+  }, 120);
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const openingDuration = reduceMotion ? 120 : 2150;
+  const letterHoldDuration = reduceMotion ? 200 : 1000;
+  const fadingDuration = reduceMotion ? 40 : 650;
+
+  window.setTimeout(() => {
+    intro.classList.add("is-fading");
+  }, openingDuration + letterHoldDuration);
+
+  window.setTimeout(() => {
+    intro.classList.add("is-hidden");
+    intro.setAttribute("aria-hidden", "true");
+    body.classList.remove("intro-active");
+    body.classList.add("intro-complete");
+    introCompleted = true;
+  }, openingDuration + letterHoldDuration + fadingDuration);
+}
+
+
+        seal.addEventListener("click", openInvitation);
+        seal.addEventListener("keydown", (event) => {
+          const key = event.key;
+          if (key === "Enter" || key === " ") {
+            event.preventDefault();
+            openInvitation();
+          }
+        });
+      })();
+
+
+
+      // RSVP: logica campi se Sì / No
+      (function initRsvpConditionalFields() {
+        const presenceGroup = document.getElementById("presence-group");
+        const yesFields = document.querySelectorAll(".rsvp-when-yes");
+        if (!presenceGroup || !yesFields.length) return;
+
+        function setVisibility(value) {
+          const showExtra = value === "Si";
+          yesFields.forEach((field) => {
+            if (showExtra) {
+              field.style.display = "";
+            } else {
+              field.style.display = "none";
+              const inputs = field.querySelectorAll("input, textarea");
+              inputs.forEach((el) => {
+                if (el.id === "totale") {
+                  el.removeAttribute("required");
+                }
+              });
+            }
+          });
+          // Gestione required per totale solo se Sì
+          const totale = document.getElementById("totale");
+          if (totale) {
+            if (showExtra) totale.setAttribute("required", "required");
+            else totale.removeAttribute("required");
+          }
+        }
+        // Default: nasconde campi extra finché non scelgo
+        setVisibility("");
+        presenceGroup.addEventListener("change", () => {
+          const pills = presenceGroup.querySelectorAll(".radio-pill");
+          let selectedValue = "";
+          pills.forEach((pill) => {
+            const input = pill.querySelector("input");
+            if (input && input.checked) {
+              pill.classList.add("radio-pill--active");
+              selectedValue = input.value;
+            } else {
+              pill.classList.remove("radio-pill--active");
+            }
+          });
+          setVisibility(selectedValue);
+        });
+      })();
+      // Invio form via Formspree
+      (function initFormSubmit() {
+        const form = document.getElementById("rsvp-form");
+        const messageEl = document.getElementById("form-message");
+        const successBox = document.getElementById("rsvp-success");
+        if (!form || !messageEl || !successBox) {
+          console.warn("[RSVP] Elementi form non trovati");
+          return;
+        }
+        form.addEventListener("submit", async function(e) {
+          e.preventDefault();
+          const endpoint = form.action;
+          if (!endpoint) {
+            messageEl.textContent = "Il form non è ancora configurato per l’invio.";
+            messageEl.className = "form-message form-message--error";
+            return;
+          }
+          const formData = new FormData(form);
+          messageEl.textContent = "Invio in corso...";
+          messageEl.className = "form-message";
+          try {
+            const response = await fetch(endpoint, {
+              method: "POST",
+              body: formData,
+              headers: {
+                Accept: "application/json"
+              }
+            });
+            let responseBody = null;
+            try {
+              responseBody = await response.clone().json();
+              console.log("[RSVP] Response JSON:", responseBody);
+            } catch (_) {
+              try {
+                responseBody = await response.text();
+                console.log("[RSVP] Response TEXT:", responseBody);
+              } catch (_) {}
+            }
+            if (!response.ok) {
+              throw new Error("Errore invio");
+            }
+            form.hidden = true;
+            messageEl.textContent = "";
+            successBox.hidden = false;
+            const rsvpSection = document.getElementById("rsvp");
+            if (rsvpSection) {
+              rsvpSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+              });
+            }
+          } catch (error) {
+            console.error("[RSVP] Errore durante l'invio:", error);
+            messageEl.textContent = "Si è verificato un problema durante l’invio. Puoi riprovare più tardi.";
+            messageEl.className = "form-message form-message--error";
+          }
+        });
+      })();
+      (function snow() {
+        const canvas = document.getElementById('snow-canvas');
+        const ctx = canvas.getContext('2d');
+        let w, h, flakes;
+
+        function resize() {
+          w = canvas.width = window.innerWidth;
+          h = canvas.height = window.innerHeight;
+          const density = Math.min(140, Math.floor(w * h / 12000));
+          flakes = new Array(density).fill(0).map(() => ({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            r: Math.random() * 1.8 + 0.6,
+            a: Math.random() * 2 * Math.PI,
+            v: Math.random() * 0.5 + 0.25
+          }));
+        }
+        window.addEventListener('resize', resize, {
+          passive: true
+        });
+        resize();
+
+        function tick() {
+          ctx.clearRect(0, 0, w, h);
+          ctx.fillStyle = 'rgba(255,255,255,0.75)';
+          flakes.forEach(f => {
+            f.y += f.v;
+            f.x += Math.sin(f.a += 0.01) * 0.3;
+            if (f.y > h + 5) {
+              f.y = -5;
+              f.x = Math.random() * w;
+            }
+            if (f.x > w + 5) {
+              f.x = -5;
+            }
+            if (f.x < -5) {
+              f.x = w + 5;
+            }
+            ctx.beginPath();
+            ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+            ctx.fill();
+          });
+          requestAnimationFrame(tick);
+        }
+        tick();
+      })();
+    </script>
+  </body>
+</html>
